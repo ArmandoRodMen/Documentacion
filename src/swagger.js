@@ -7,7 +7,7 @@ const swaggerOptions = {
         info: {
             title: 'E-commerce Coderhouse',
             version: '1.0.0',
-            description: "Products description documentation",
+            description: "Products & users description documentation",
         },
     },
     apis: [`${__dirname}/docs/*.yaml`],

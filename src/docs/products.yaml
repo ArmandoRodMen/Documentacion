@@ -11,8 +11,30 @@ paths:
           description: Server error
         "400":
           desscription: Some data is missing
+    post:
+      summary: Create product
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Product created
+        "500":
+          description: Error al crear el producto
+        "400":
+          desscription: Some data is missing
+    delete:
+      summary: Delete product
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Product deleted
+        "500":
+          description: Error al crear el producto
+        "400":
+          desscription: Some data is missing
 
-  /api/users/{id}:
+  /api/products/{id}:
     get:
       summary: Get product by ID
       tags:
@@ -38,9 +60,20 @@ paths:
                   code: dasd4
                   stock: 34
                   category: asd
-
         "500":
           description: Server error
+        "400":
+          desscription: Some data is missing
+
+    put:
+      summary: Update product
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Product updated
+        "500":
+          description: Error updating
         "400":
           desscription: Some data is missing
 
