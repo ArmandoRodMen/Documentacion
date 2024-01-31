@@ -1,0 +1,80 @@
+paths:
+  /api/products:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        "200":
+          description: All products
+        "500":
+          description: Server error
+        "400":
+          desscription: Some data is missing
+
+  /api/users/{id}:
+    get:
+      summary: Get product by ID
+      tags:
+        - Products
+      parameteres:
+        - name: id
+          in: path
+          description: Product identifier
+      responses: 
+        "200":
+          description: One product found
+          content:
+            application/json:
+              schemas:
+                schemas:
+                  $ref: "#/components/schemas/Product"
+                example:
+                  id: 456468fsf5
+                  title: A
+                  description: asdad
+                  price: 12
+                  thumbnail: dada
+                  code: dasd4
+                  stock: 34
+                  category: asd
+
+        "500":
+          description: Server error
+        "400":
+          desscription: Some data is missing
+
+components: 
+  schemas:
+    Product:
+      type: object
+      properties: 
+        id:
+          type: string
+        title: 
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        thumbnail:
+          type: string
+        code:
+          type: string
+        stock:
+          type: number
+        category:
+          type: string
+
+      example:
+        id: 456468fsf5
+        title: A
+        description: asdad
+        price: 12
+        thumbnail: dada
+        code: dasd4
+        stock: 34
+        category: asd
+
+
+
