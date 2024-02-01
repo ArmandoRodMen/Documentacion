@@ -1,152 +1,181 @@
 paths:
   /api/users:
     get:
-      summary: Get all users
+      summary: Retrieve a list of users
+      description: Returns a list of all users in the system.
       tags:
         - Users
       responses:
         "200":
-          description: All users
-        "500":
-          description: Server error
+          description: A list of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
         "400":
-          desscription: Some data is missing
-    post:
-      summary: Create user
-      tags:
-        - Users
-      responses:
-        "200":
-          description: User created
+          description: Invalid request parameters
         "500":
-          description: Server error
-        "400":
-          desscription: Some data is missing
+          description: Internal server error
 
+    post:
+      summary: Create a new user
+      description: Adds a new user to the system.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: User created successfully
+        "400":
+          description: Invalid input, object invalid
+        "500":
+          description: Internal server error
 
   /api/users/{id}:
     get:
-      summary: Get user by ID
+      summary: Get a user by their ID
+      description: Returns a single user by their unique identifier.
       tags:
         - Users
-      parameteres:
+      parameters:
         - name: id
           in: path
-          description: User identifier
-      responses: 
+          required: true
+          description: Unique identifier of the user
+          schema:
+            type: string
+      responses:
         "200":
-          description: One user found
+          description: Details of the user
           content:
             application/json:
-              schemas:
-                schemas:
-                  $ref: "#/components/schemas/user"
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
         "500":
-          description: Server error
-        "400":
-          desscription: Some data is missing
-    delete:
-      summary: Delete user by ID
-      tags:
-        - Users
-      parameteres:
-        - name: id
-          in: path
-          description: User identifier
-      responses: 
-        "200":
-          description: One user found
-          content:
-            application/json:
-              schemas:
-                schemas:
-                  $ref: "#/components/schemas/user"
-        "500":
-          description: Server error
-        "400":
-          desscription: Some data is missing
+          description: Internal server error
+
     put:
-      summary: Update user by ID
+      summary: Update a user
+      description: Updates an existing user identified by their ID.
       tags:
         - Users
-      parameteres:
+      parameters:
         - name: id
           in: path
-          description: User identifier
-      responses: 
+          required: true
+          description: Unique identifier of the user to update
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
         "200":
-          description: One user found
-          content:
-            application/json:
-              schemas:
-                schemas:
-                  $ref: "#/components/schemas/user"
-        "500":
-          description: Server error
+          description: User updated successfully
         "400":
-          desscription: Some data is missing
+          description: Invalid input, object invalid
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
+
+    delete:
+      summary: Delete a user by their ID
+      description: Deletes a user identified by their ID.
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique identifier of the user to delete
+          schema:
+            type: string
+      responses:
+        "200":
+          description: User deleted successfully
+        "404":
+          description: User not found
+        "500":
+          description: Internal server error
 
   /api/users/email/{email}:
     get:
       summary: Get user by email
+      description: Returns a user by their email address.
       tags:
         - Users
-      parameteres:
-        - name: id
+      parameters:
+        - name: email
           in: path
-          description: User identifier
-      responses: 
+          required: true
+          description: Email address of the user
+          schema:
+            type: string
+      responses:
         "200":
           description: User found by email
           content:
             application/json:
-              schemas:
-                schemas:
-                  $ref: "#/components/schemas/user"
+              schema:
+                $ref: '#/components/schemas/User'
+        "404":
+          description: User not found
         "500":
-          description: Server error
-        "400":
-          desscription: Some data is missing
-    
+          description: Internal server error
+
   /api/users/premium/{id}:
     post:
-      summary: Change user's role
+      summary: Change a user's role to premium
+      description: Updates the role of an existing user to 'premium'.
       tags:
         - Users
-      parameteres:
+      parameters:
         - name: id
           in: path
-          description: User identifier
-      responses: 
+          required: true
+          description: Unique identifier of the user
+          schema:
+            type: string
+      responses:
         "200":
-          description: Role updated
-          content:
-            application/json:
-              schemas:
-                schemas:
-                  $ref: "#/components/schemas/user"
+          description: User's role updated to premium
+        "404":
+          description: User not found
         "500":
-          description: Server error
-        "400":
-          desscription: Some data is missing
+          description: Internal server error
 
 components: 
   schemas:
     User:
       type: object
+      required:
+        - first_name
+        - last_name
+        - email
+        - password
+        - username
+        - role
       properties: 
         first_name:
           type: string
         last_name: 
           type: string
         email:
-          type: string
-        password:
-          type: string
-        username:
-          type: string
-        age:
-          type: number
+          type
+
 
 
 
